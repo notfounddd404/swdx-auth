@@ -79,7 +79,7 @@ export default {
   },
   login: {
     title: '登录 ',
-    info: '省委党校统一身份认证',
+    info: '统一身份认证系统',
     tenantId: '请输入租户ID',
     username: '请输入账号',
     password: '请输入密码',

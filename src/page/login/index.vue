@@ -8,6 +8,7 @@
         <div class="login-time">
           {{time}}
         </div>
+        <img class="login-img" src="/img/login/login-title.png" alt="">
         <p class="title">{{ $t('login.info') }}</p>
         <div style="font-size: 15px">
           <!-- <span>----------------------------------------------</span>
