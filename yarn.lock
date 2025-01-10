@@ -3345,6 +3345,14 @@ ecc-jsbn@~0.1.1:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
 
+echarts@^5.5.1:
+  version "5.5.1"
+  resolved "https://registry.npmmirror.com/echarts/-/echarts-5.5.1.tgz"
+  integrity sha512-Fce8upazaAXUVUVsjgV6mBnGuqgO+JNDlcgF79Dksy4+wgGpQB2lmYoO4TSweFg/mZITdpGHomw/cNBJZj1icA==
+  dependencies:
+    tslib "2.3.0"
+    zrender "5.6.0"
+
 ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.npmmirror.com/ee-first/-/ee-first-1.1.1.tgz"
@@ -8793,6 +8801,11 @@ tryer@^1.0.1:
   resolved "https://registry.npmmirror.com/tryer/-/tryer-1.0.1.tgz"
   integrity sha512-c3zayb8/kWWpycWYg87P71E1S1ZL6b6IJxfb5fvsUgsf0S2MVGaDhDXXjDMpdCpfWXqptc+4mXwmiy1ypXqRAA==
 
+tslib@2.3.0:
+  version "2.3.0"
+  resolved "https://registry.npmmirror.com/tslib/-/tslib-2.3.0.tgz"
+  integrity sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==
+
 tty-browserify@0.0.0:
   version "0.0.0"
   resolved "https://registry.npmmirror.com/tty-browserify/-/tty-browserify-0.0.0.tgz"
@@ -9597,3 +9610,10 @@ yorkie@^2.0.0:
     is-ci "^1.0.10"
     normalize-path "^1.0.0"
     strip-indent "^2.0.0"
+
+zrender@5.6.0:
+  version "5.6.0"
+  resolved "https://registry.npmmirror.com/zrender/-/zrender-5.6.0.tgz"
+  integrity sha512-uzgraf4njmmHAbEUxMJ8Oxg+P3fT04O+9p7gY+wJRVxo8Ge+KmYv0WJev945EH4wFuc4OY2NLXz46FZrWS9xJg==
+  dependencies:
+    tslib "2.3.0"

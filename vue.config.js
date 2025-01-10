@@ -26,9 +26,9 @@ module.exports = {
     proxy: {
       '/api': {
         //本地服务接口地址
-        target: 'http://localhost:9566',
+        // target: 'http://localhost:9566',
         //远程演示服务地址,可用于直接启动项目
-        //target: 'https://saber.bladex.cn/api',
+        target: 'http://124.70.216.140:16688/api',
         ws: true,
         pathRewrite: {
           '^/api': '/'
