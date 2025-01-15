@@ -387,6 +387,9 @@
         this.registeredClientId = ''
         this.dialogVisible = false
       },
+      addClient() {
+        
+      }
     }
   };
 </script>

@@ -34,12 +34,25 @@
           <avue-form ref="cusSearch" :inline="true" v-model="query" :option="customSearchOption" @submit="refreshChange"></avue-form>
         </div>
       </template>
+      <template slot="menuRight">
+        <div style="display: inline-flex;margin-right: 10px;">
+            <el-select v-model="registeredClientId" size="small" placeholder="请选择" @change="registeredClientIdChange" clearable>
+                    <el-option
+                    v-for="item in options"
+                    :key="item.id"
+                    :label="item.clientId"
+                    :value="item.id">
+                    </el-option>
+                </el-select>
+        </div>
+      </template>
     </avue-crud>
   </basic-container>
 </template>
 
 <script>
   import {getList, getDetail, add, update, remove} from "@/api/system/authorizationinfo";
+  import {getList as getClientList} from "@/api/system/client";
   import {mapGetters} from "vuex";
   import {deepClone} from "@/util/util";
 
@@ -49,6 +62,7 @@
     },
     data() {
       return {
+        options: [],
         isDialogOpen: false,
         form: {},
         query: {},
@@ -74,17 +88,17 @@
           dialogClickModal: false,
           labelWidth: 150,
           column: [
-            {
-              label: "应用id",
-              prop: "registeredClientId",
-              overHidden: true,
-              rules: [{
-                required: true,
-                message: "请输入刷新令牌所属应用id",
-                trigger: "blur"
-              }],
-              display: false
-            },
+            // {
+            //   label: "应用id",
+            //   prop: "registeredClientId",
+            //   overHidden: true,
+            //   rules: [{
+            //     required: true,
+            //     message: "请输入刷新令牌所属应用id",
+            //     trigger: "blur"
+            //   }],
+            //   display: false
+            // },
             {
               label: "用户编码",
               prop: "principalName",
@@ -140,6 +154,7 @@
               }],
               type: 'radio',
               dataType: 'string',
+              value: 1,
               dicData: [
                 { label: '启用', value: 1 },
                 { label: '禁用', value: 0 },
@@ -313,8 +328,23 @@
             label: '基础信息',
             prop: 'baseInfo',
             icon: 'el-icon-s-order',
-            collapse: true,
             column: [
+            {
+              label: "所属应用",
+              prop: "registeredClientId",
+              overHidden: true,
+              rules: [{
+                required: true,
+                message: "请输入所属应用",
+                trigger: "blur"
+              }],
+              type: 'select',
+              dicData: [],
+              props: {
+                label: 'clientId',
+                value: 'id'
+              }
+            },
             {
               label: "用户编码",
               prop: "principalName",
@@ -366,6 +396,7 @@
               }],
               type: 'radio',
               dataType: 'string',
+              value: 1,
               dicData: [
                 { label: '启用', value: 1 },
                 { label: '禁用', value: 0 },
@@ -495,16 +526,16 @@
             icon: 'el-icon-s-order',
             collapse: true,
             column: [
-            {
-              label: "刷新令牌所属应用id",
-              prop: "registeredClientId",
-              overHidden: true,
-              rules: [{
-                required: true,
-                message: "请输入刷新令牌所属应用id",
-                trigger: "blur"
-              }]
-            },
+            // {
+            //   label: "刷新令牌所属应用id",
+            //   prop: "registeredClientId",
+            //   overHidden: true,
+            //   rules: [{
+            //     required: true,
+            //     message: "请输入刷新令牌所属应用id",
+            //     trigger: "blur"
+            //   }]
+            // },
             {
               label: "刷新令牌码",
               prop: "refreshTokenValue",
@@ -598,11 +629,13 @@
       }
     },
     mounted() {
-      this.$refs.crud.gridShow = true
+    //   this.$refs.crud.gridShow = true
+        this.getClientList()
     },
     methods: {
       rowSave(row, done, loading) {
         add(row).then(() => {
+          this.registeredClientId = row.registeredClientId
           this.onLoad(this.page);
           this.$message({
             type: "success",
@@ -616,6 +649,7 @@
       },
       rowUpdate(row, index, done, loading) {
         update(row).then(() => {
+          this.registeredClientId = row.registeredClientId
           this.onLoad(this.page);
           this.$message({
             type: "success",
@@ -707,8 +741,12 @@
       },
       onLoad(page, params = {}, done = ()=>{}) {
         this.loading = true;
+        if (!this.registeredClientId || this.registeredClientId =='') {
+            this.loading = false
+            done();
+            return 
+        }
         params.registeredClientId = this.registeredClientId
-        console.log("this.registeredClientId",this.registeredClientId)
         getList(page.currentPage, page.pageSize, Object.assign(params, this.query)).then(res => {
           const data = res.data.data;
           this.page.total = data.total;
@@ -718,6 +756,24 @@
           done();
         });
       },
+      getClientList() {
+        getClientList(1, 999).then(res => {
+          const data = res.data.data;
+          this.options = data.records;
+          console.log("this.option",this.option)
+          var column = this.findObject(this.option.group[0].column, "registeredClientId");
+          column.dicData = Object.assign([],this.options)
+        });
+      },
+      registeredClientIdChange() {
+        this.onLoad(this.page)
+      },
+      refresh() {
+        this.onLoad(this.page)
+      },
+      grid() {
+        this.$refs.crud.gridShow = !this.$refs.crud.gridShow
+      }
     }
   };
 </script>
