@@ -2,7 +2,7 @@ import request from '@/router/axios';
 
 export const getList = (current, size, params) => {
   return request({
-    url: '/api/blade-system/client/list',
+    url: '/api/blade-system/authconfig/list',
     method: 'get',
     params: {
       ...params,
@@ -14,7 +14,7 @@ export const getList = (current, size, params) => {
 
 export const getDetail = (id) => {
   return request({
-    url: '/api/blade-system/client/detail',
+    url: '/api/blade-system/authconfig/detail',
     method: 'get',
     params: {
       id
@@ -24,7 +24,7 @@ export const getDetail = (id) => {
 
 export const remove = (ids) => {
   return request({
-    url: '/api/blade-system/client/remove',
+    url: '/api/blade-system/authconfig/remove',
     method: 'post',
     params: {
       ids,
@@ -34,7 +34,7 @@ export const remove = (ids) => {
 
 export const add = (row) => {
   return request({
-    url: '/api/blade-system/client/submit',
+    url: '/api/blade-system/authconfig/save',
     method: 'post',
     data: row
   })
@@ -42,28 +42,26 @@ export const add = (row) => {
 
 export const update = (row) => {
   return request({
-    url: '/api/blade-system/client/submit',
+    url: '/api/blade-system/authconfig/update',
     method: 'post',
     data: row
   })
 }
 
-export const batchPass = (ids) => {
-    return request({
-      url: '/api/blade-system/client/batchPass',
-      method: 'post',
-      params: {
-        ids,
-      }
-    })
-  }
+export const getLastOne = (id) => {
+  return request({
+    url: '/api/blade-system/authconfig/getLastOne',
+    method: 'get',
+    params: {
+      id
+    }
+  })
+}
 
-export const batchCancel = (ids) => {
-    return request({
-      url: '/api/blade-system/client/batchCancel',
-      method: 'post',
-      params: {
-        ids,
-      }
-    })
-  }
+export const submit = (row) => {
+  return request({
+    url: '/api/blade-system/authconfig/submit',
+    method: 'post',
+    data: row
+  })
+}

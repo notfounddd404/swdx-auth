@@ -27,14 +27,31 @@
                    v-if="permission.client_delete"
                    @click="handleDelete">删 除
         </el-button>
+        <el-button size="small"
+                   icon="el-icon-success"
+                   plain
+                   @click="batchPass">批量通过
+        </el-button>
+        <el-button size="small"
+                   icon="el-icon-error"
+                   plain
+                   @click="batchCancel">批量撤销
+        </el-button>
       </template>
       <template #menu="{ size, row, index }">
         <el-button @click="getAuthList(row,index)"
                  icon="el-icon-key"
-                 type="text">
+                 type="text"
+                 size="mini">
         应用授权列表
       </el-button>
     </template>
+    <template slot-scope="{row}" slot="status">
+        <el-tag v-if="row.status==0" type="danger" size="mini">撤销</el-tag>
+        <el-tag v-if="row.status==1" type="success" size="mini">已通过</el-tag>
+        <el-tag v-if="row.status==2" type="warning" size="mini">待审批</el-tag>
+        <el-tag v-if="row.status==3" type="warning" size="mini">取消申请</el-tag>
+      </template>
     </avue-crud>
     <el-dialog
         title="应用授权列表"
@@ -82,14 +99,24 @@
           searchMenuSpan: 6,
           border: true,
           index: true,
+          editBtn: true,
           viewBtn: true,
           selection: true,
           dialogClickModal: false,
           column: [
             {
+              label: "应用名称",
+              prop: "clientName",
+              search: true,
+              rules: [{
+                required: true,
+                message: "请输入应用名称",
+                trigger: "blur"
+              }]
+            },
+            {
               label: "应用id",
               prop: "clientId",
-              search: true,
               rules: [{
                 required: true,
                 message: "请输入客户端id",
@@ -99,7 +126,6 @@
             {
               label: "应用密钥",
               prop: "clientSecret",
-              search: true,
               rules: [{
                 required: true,
                 message: "请输入客户端密钥",
@@ -230,7 +256,8 @@
               rules: [{
                 message: "请输入权限",
                 trigger: "blur"
-              }]
+              }],
+              span: 24,
             },
             {
               label: "附加说明",
@@ -241,6 +268,29 @@
                 message: "请输入附加说明",
                 trigger: "blur"
               }]
+            },
+            {
+              label: "是否通过",
+              prop: "status",
+              overHidden: true,
+              rules: [{
+                required: true,
+                message: "请输入是否通过",
+                trigger: "blur"
+              }],
+              search: true,
+              type: "select",
+              display: false,
+              dicData: [
+                {
+                    label: '通过',
+                    value: '1'
+                },
+                {
+                    label: '不通过',
+                    value: '0'
+                }
+              ]
             },
           ]
         },

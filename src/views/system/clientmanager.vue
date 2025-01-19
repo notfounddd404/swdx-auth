@@ -25,7 +25,7 @@
         <el-button size="small"
                    type="primary"
                    icon="el-icon-plus"
-                   @click="clientApplySubmit">申请应用
+                   @click="clientApplySubmit">添加应用
         </el-button>
         <el-button type="danger"
                    size="small"
@@ -33,6 +33,16 @@
                    plain
                    v-if="permission.clientapply_delete"
                    @click="handleDelete">删 除
+        </el-button>
+        <el-button size="small"
+                   icon="el-icon-success"
+                   plain
+                   @click="batchPass">批量通过
+        </el-button>
+        <el-button size="small"
+                   icon="el-icon-error"
+                   plain
+                   @click="batchCancel">批量撤销
         </el-button>
         <!-- <div class="header-search el-col-md-18 el-col-sm-24" v-if="option.innerSearch">
           <avue-form ref="cusSearch" :inline="true" v-model="query" :option="customSearchOption" @submit="refreshChange"></avue-form>
@@ -336,7 +346,7 @@
 </template>
 
 <script>
-  import {getList, getDetail, add, update, remove} from "@/api/system/clientapply";
+  import {getList, getDetail, add, update, remove, batchPass, batchCancel} from "@/api/system/clientapply";
   import {mapGetters} from "vuex";
   import {deepClone} from "@/util/util";
 
@@ -1088,6 +1098,50 @@
             return false
         }
         return true
+      },
+      batchPass() {
+        if (this.selectionList.length === 0) {
+          this.$message.warning("请选择至少一条数据");
+          return;
+        }
+        this.$confirm("确定将选择数据批量通过?", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        })
+          .then(() => {
+            return batchPass(this.ids);
+          })
+          .then(() => {
+            this.onLoad(this.page);
+            this.$message({
+              type: "success",
+              message: "操作成功!"
+            });
+            this.$refs.crud.toggleSelection();
+          });
+      },
+      batchCancel() {
+        if (this.selectionList.length === 0) {
+          this.$message.warning("请选择至少一条数据");
+          return;
+        }
+        this.$confirm("确定将选择数据批量撤销?", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        })
+          .then(() => {
+            return batchCancel(this.ids);
+          })
+          .then(() => {
+            this.onLoad(this.page);
+            this.$message({
+              type: "success",
+              message: "操作成功!"
+            });
+            this.$refs.crud.toggleSelection();
+          });
       }
     }
   };

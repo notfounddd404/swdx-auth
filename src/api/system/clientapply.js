@@ -48,3 +48,30 @@ export const update = (row) => {
   })
 }
 
+export const batchPass = (ids) => {
+    return request({
+      url: '/api/blade-system/clientapply/batchPass',
+      method: 'post',
+      params: {
+        ids,
+      }
+    })
+  }
+
+export const batchCancel = (ids) => {
+    return request({
+      url: '/api/blade-system/clientapply/batchCancel',
+      method: 'post',
+      params: {
+        ids,
+      }
+    })
+  }
+  
+export const updateLogoutPlace = (row) => {
+  return request({
+    url: '/api/blade-system/clientapply/updateLogoutPlace',
+    method: 'post',
+    data: row
+  })
+}
