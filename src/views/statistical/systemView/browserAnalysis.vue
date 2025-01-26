@@ -273,7 +273,7 @@
 .circle {
     stroke-dasharray: 1000; /* 路径总长度 */
     stroke-dashoffset: 1000; /* 初始偏移量 */
-    animation: draw-circle 2s ease-in-out forwards; /* 只播放一次 */
+    animation: draw-circle 1s ease-in-out forwards; /* 只播放一次 */
 } 
 
 /* 关键帧：绘制圆环 */
@@ -302,6 +302,6 @@
 }
 
 .circle {
-    animation: draw-circle 2s ease-in-out forwards, fill-color 0.5s ease-in-out 2s forwards;
+    animation: draw-circle 1s ease-in-out forwards, fill-color 0.5s ease-in-out 1s forwards;
 }
 </style>
