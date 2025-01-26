@@ -75,3 +75,24 @@ export const updateLogoutPlace = (row) => {
     data: row
   })
 }
+
+export const udpateLoginTopic = (loginTopicId,ids) => {
+  return request({
+    url: '/api/blade-system/clientapply/udpateLoginTopic',
+    method: 'post',
+    params: {
+        loginTopicId,
+        ids
+    }
+  })
+}
+
+export const removeLoginTopic = (ids) => {
+    return request({
+      url: '/api/blade-system/clientapply/removeLoginTopic',
+      method: 'post',
+      params: {
+        ids,
+      }
+    })
+  }

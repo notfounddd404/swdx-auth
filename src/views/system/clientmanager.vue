@@ -458,7 +458,7 @@
           border: true,
           index: true,
           addBtn: false,
-          editBtn: false,
+          editBtn: true,
           viewBtn: true,
           selection: true,
           dialogClickModal: false,
@@ -772,6 +772,13 @@
                 trigger: "blur"
               }],
               hide: true,
+              type: "select",
+              dicUrl: '/api/blade-system/logintopicmanager/list',
+              props: {
+                label: 'title',
+                value: 'id',
+                res: 'data.records'
+              }
             },
             {
               label: "图标颜色",

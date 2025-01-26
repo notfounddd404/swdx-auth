@@ -34,7 +34,7 @@
         </div>
       </template>
     </avue-crud> -->
-        <div class="title">
+    <div class="title">
         <!-- <span class="title-bg"></span> -->
         <svg t="1737282612113" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="13057" id="mx_n_1737282612114" width="35" height="35"><path d="M832 896H298.666667a104.533333 104.533333 0 0 1-106.666667-102.4v-101.973333h53.333333v102.826666A52.48 52.48 0 0 0 298.666667 845.653333h533.333333a52.48 52.48 0 0 0 53.333333-51.2V229.546667a52.48 52.48 0 0 0-53.333333-51.2H298.666667a52.48 52.48 0 0 0-53.333334 51.2v102.826666H192V229.546667A104.533333 104.533333 0 0 1 298.666667 128h533.333333A104.533333 104.533333 0 0 1 938.666667 229.546667v564.906666A104.533333 104.533333 0 0 1 832 896zM601.173333 352a25.6 25.6 0 0 1 0-36.693333 27.733333 27.733333 0 0 1 37.546667 0l184.32 177.066666a30.293333 30.293333 0 0 1 0 39.253334L640 708.693333a27.733333 27.733333 0 0 1-37.546667 0 25.173333 25.173333 0 0 1 0-36.266666l139.946667-134.826667H112.213333a25.6 25.6 0 1 1 0-51.2h628.906667z" fill="#409EFF" p-id="13058"></path></svg>
         <h2>登录配置管理</h2>
@@ -382,7 +382,7 @@
         }
         getDictionary(params).then(res => {
             this.loginConfigTypeList = res.data.data
-            console.log("loginConfigTypeList",this.loginConfigTypeList)
+            this.getLastOne(this.loginConfigTypeList[0].id)
         })
       },
       onSubmit(item) {
@@ -400,19 +400,18 @@
         });
       },
       handleClick(value) {
-        console.log("handleClickhandleClickhandleClick",value)
         this.form = {}
         this.isEdit = true
-        var params = {
-            type: value.$attrs.value
-        }
-        getLastOne(params).then(res => {
+        this.getLastOne(value.$attrs.value)
+      },
+      getLastOne(id) {
+        getLastOne({type:id}).then(res => {
             if (res.data.code==200) {
                 this.form = res.data.data
                 this.isEdit = false
             }
         })
-      },
+      }
     }
   };
 </script>

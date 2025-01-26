@@ -34,117 +34,142 @@
         </div>
       </template>
     </avue-crud> -->
-    <el-container style="height: 500px; border: 1px solid #eee">
+    <el-container style="border: 1px solid #eee">
         <el-aside width="200px" style="background-color: #fff;">
-            <el-menu :default-openeds="['1', '3']">
-            <el-submenu index="1">
-                <template slot="title"><i class="el-icon-message"></i>导航一</template>
-                <el-menu-item-group>
-                <template slot="title">分组一</template>
-                <el-menu-item index="1-1">选项1</el-menu-item>
-                <el-menu-item index="1-2">选项2</el-menu-item>
-                </el-menu-item-group>
-                <el-menu-item-group title="分组2">
-                <el-menu-item index="1-3">选项3</el-menu-item>
-                </el-menu-item-group>
-                <el-submenu index="1-4">
-                <template slot="title">选项4</template>
-                <el-menu-item index="1-4-1">选项4-1</el-menu-item>
-                </el-submenu>
-            </el-submenu>
-            <el-submenu index="2">
-                <template slot="title"><i class="el-icon-menu"></i>导航二</template>
-                <el-menu-item-group>
-                <template slot="title">分组一</template>
-                <el-menu-item index="2-1">选项1</el-menu-item>
-                <el-menu-item index="2-2">选项2</el-menu-item>
-                </el-menu-item-group>
-                <el-menu-item-group title="分组2">
-                <el-menu-item index="2-3">选项3</el-menu-item>
-                </el-menu-item-group>
-                <el-submenu index="2-4">
-                <template slot="title">选项4</template>
-                <el-menu-item index="2-4-1">选项4-1</el-menu-item>
-                </el-submenu>
-            </el-submenu>
-            <el-submenu index="3">
-                <template slot="title"><i class="el-icon-setting"></i>导航三</template>
-                <el-menu-item-group>
-                <template slot="title">分组一</template>
-                <el-menu-item index="3-1">选项1</el-menu-item>
-                <el-menu-item index="3-2">选项2</el-menu-item>
-                </el-menu-item-group>
-                <el-menu-item-group title="分组2">
-                <el-menu-item index="3-3">选项3</el-menu-item>
-                </el-menu-item-group>
-                <el-submenu index="3-4">
-                <template slot="title">选项4</template>
-                <el-menu-item index="3-4-1">选项4-1</el-menu-item>
-                </el-submenu>
-            </el-submenu>
+            <el-menu
+                default-active="0"
+                class="el-menu-vertical-demo">
+                <el-menu-item :index="index" v-for="(item,index) in data" :key="item" @click="menuClick(item)">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">{{item.title}}</span>
+                </el-menu-item>
             </el-menu>
         </el-aside>
-        
+        <el-divider direction="vertical"></el-divider>
         <el-container>
             <el-header style="text-align: right; font-size: 12px">
-                <el-dropdown>
-                    <i class="el-icon-setting" style="margin-right: 15px"></i>
-                    <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item>查看</el-dropdown-item>
-                    <el-dropdown-item>新增</el-dropdown-item>
-                    <el-dropdown-item>删除</el-dropdown-item>
-                    </el-dropdown-menu>
-                </el-dropdown>
-                <span>王小虎</span>
+                <div>
+                    <el-button-group >
+                        <el-button type="primary" icon="el-icon-s-promotion" size="medium" plain @click="addTopic">添加主题</el-button>
+                        <el-button type="primary" icon="el-icon-edit" size="medium" plain @click="editTopic">修改</el-button>
+                        <el-button type="primary" icon="el-icon-close" size="medium" plain @click="delTopic">删除</el-button>
+                    </el-button-group>
+                </div>
             </el-header>
 
             <el-main>
-                <el-tabs type="card">
-                    <el-tab-pane label="数据库认证">
-                        <el-form ref="form" :model="form" label-width="180px" size="small" :disabled="isEdit">
-                            <el-form-item label="认证的SQL：">
-                                <el-input v-model="form.authSql"></el-input>
-                                <i class="el-icon-info">配置查询用户信息SQL</i>
+                <el-tabs type="card" v-model="activeName" @tab-click="tabsHandleClick">
+                    <el-tab-pane label="登录主题信息" name="0">
+                        <el-form v-if="!addTopicVisible" ref="form" :model="form" label-width="500px" size="small" :disabled="isEdit">
+                            <el-form-item label="主题名称：">
+                                <el-input v-if="updateTopicVisible" v-model="form.title"></el-input>
+                                <span v-else>{{form.title}}</span>
                             </el-form-item>
-                            <el-form-item label="密码类型：">
-                                <el-select v-model="form.passwdType" placeholder="请选择" >
+                            <el-form-item label="主题描述：">
+                                <el-input v-if="updateTopicVisible" v-model="form.description"></el-input>
+                                <span v-else>{{form.description}}</span>
+                            </el-form-item>
+                            <el-form-item label="是否启用：">
+                                <el-input v-if="updateTopicVisible" v-model="form.status"></el-input>
+                                <span v-else>{{form.status}}</span>
+                            </el-form-item>
+                            <el-form-item label="主题页面：">
+                                <el-input v-if="updateTopicVisible" v-model="form.page"></el-input>
+                                <span v-else>{{form.page}}</span>
+                            </el-form-item>
+                            <el-form-item label="主题图片：">
+                                <el-upload
+                                    :headers="{
+                                        'Blade-Auth': token,
+                                        'version': 'yzb',
+                                        'Authorization': auth,
+                                        'Blade-Requested-With': 'BladeHttpRequest'
+                                    }"
+                                    action="/api/blade-resource/oss/endpoint/put-file"
+                                    list-type="picture-card"
+                                    :on-preview="handlePictureCardPreview"
+                                    :on-remove="handleRemove">
+                                    <i class="el-icon-plus"></i>
+                                </el-upload>
+                            </el-form-item>
+                            <el-form-item label="是否强制显示：">
+                                <el-select v-if="updateTopicVisible" v-model="form.isShow" placeholder="请选择" >
                                     <el-option
-                                        v-for="item in passwdTypeOptions"
+                                        v-for="item in isShowOptions"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                    </el-option>
+                                </el-select>
+                                <div v-else>
+                                    <span v-if="form.isShow==1">是</span>
+                                    <span v-if="form.isShow==0">否</span>
+                                </div>
+                            </el-form-item>
+                            <el-form-item label="排序：">
+                                <el-input v-if="updateTopicVisible" v-model="form.sort"></el-input>
+                                <span v-else>{{form.sort}}</span>
+                            </el-form-item>
+                            <el-form-item v-if="updateTopicVisible">
+                                <el-button type="primary" size="small" @click="updateTopic" style="width: 30%;" :loading="isEdit">确定</el-button>
+                            </el-form-item>
+                            <el-form-item v-if="updateTopicVisible">
+                                <el-button size="small" @click="updateTopicVisible = false" style="width: 30%;" :loading="isEdit">取消</el-button>
+                            </el-form-item>
+                        </el-form>
+
+                        <!-- 新增主题 -->
+                        <el-form v-if="addTopicVisible" ref="form" :model="addform" label-width="500px" size="small" :disabled="isEdit">
+                            <el-form-item label="主题名称：">
+                                <el-input v-model="addform.title"></el-input>
+                            </el-form-item>
+                            <el-form-item label="主题描述：">
+                                <el-input v-model="addform.description"></el-input>
+                            </el-form-item>
+                            <el-form-item label="是否启用：">
+                                <el-input v-model="addform.status"></el-input>
+                            </el-form-item>
+                            <el-form-item label="主题页面：">
+                                <el-input v-model="addform.page"></el-input>
+                            </el-form-item>
+                            <el-form-item label="主题图片：">
+                                <el-upload
+                                    :headers="{
+                                        'Blade-Auth': token,
+                                        'version': 'yzb',
+                                        'Authorization': auth,
+                                        'Blade-Requested-With': 'BladeHttpRequest'
+                                    }"
+                                    action="/api/blade-resource/oss/endpoint/put-file"
+                                    list-type="picture-card"
+                                    :on-preview="handlePictureCardPreview"
+                                    :on-remove="handleRemove">
+                                    <i class="el-icon-plus"></i>
+                                </el-upload>
+                            </el-form-item>
+                            <el-form-item label="是否强制显示：">
+                                <el-select v-model="addform.isShow" placeholder="请选择" >
+                                    <el-option
+                                        v-for="item in isShowOptions"
                                         :key="item.value"
                                         :label="item.label"
                                         :value="item.value">
                                     </el-option>
                                 </el-select>
                             </el-form-item>
-                            <el-form-item label="取属性SQL：">
-                                <el-input v-model="form.attrSql"></el-input>
-                                <i class="el-icon-info">配置客户端允许查询的参数</i>
+                            <el-form-item label="排序：">
+                                <el-input v-model="addform.sort"></el-input>
                             </el-form-item>
                             <el-form-item>
-                                <el-button type="primary" size="small" @click="onSubmit" style="width: 100%;" :loading="isEdit">确定</el-button>
+                                <el-button type="primary" size="small" @click="saveTopic" style="width: 30%;" :loading="isEdit">确定</el-button>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button size="small" @click="addTopicVisible = false" style="width: 30%;" :loading="isEdit">取消</el-button>
                             </el-form-item>
                         </el-form>
                     </el-tab-pane>
-                    <el-tab-pane label="LADP认证">
-                        <el-form ref="form" :model="form" label-width="180px" size="small" :disabled="isEdit">
-                            <el-form-item label="服务器地址：">
-                                <el-input v-model="form.ldapUrl"></el-input>
-                                <i class="el-icon-info">服务器地址最后请以“/”结尾！</i>
-                            </el-form-item>
-                            <el-form-item label="Ldap Key：">
-                                <el-input v-model="form.ldapKey"></el-input>
-                            </el-form-item>
-                            <el-form-item label="Ldap Base：">
-                                <el-input v-model="form.ldapBase"></el-input>
-                                <i class="el-icon-info">如果需要检索多级目录请用“;”隔开！</i>
-                            </el-form-item>
-                            <el-form-item label="取属性SQL：">
-                                <el-input v-model="form.attrSql"></el-input>
-                            </el-form-item>
-                            <el-form-item>
-                                <el-button type="primary" size="small" @click="onSubmit" style="width: 100%;" :loading="isEdit">确定</el-button>
-                            </el-form-item>
-                        </el-form>
+                    <el-tab-pane label="应用主题系统" name="1">
+                        <apply-topic-system :loginTopicId="loginTopicId" :loginTopicTitle="loginTopicTitle"></apply-topic-system>
                     </el-tab-pane>
                 </el-tabs>
             </el-main>
@@ -157,10 +182,36 @@
   import {getList, getDetail, add, update, remove} from "@/api/authManager/logintopicmanager";
   import {mapGetters} from "vuex";
   import {deepClone} from "@/util/util";
-
+  import { getToken } from "@/util/auth";
+  import {Base64} from 'js-base64';
+  import website from '@/config/website';
+  import applyTopicSystem from './components/applyTopicSystem.vue';
   export default {
+    components: {applyTopicSystem},
     data() {
       return {
+        loginTopicTitle: '',
+        loginTopicId: '',
+        activeName: '0',
+        isShowOptions: [
+            {
+                label: '是',
+                value: 1
+            },
+            {
+                label: '否',
+                value: 0
+            }
+        ],
+        addform: {},
+        isEdit: false,
+        updateTopicVisible: false,
+        addTopicVisible: false,
+        token: this.getheader(),
+        auth: this.getAuthorization(),
+        dialogImageUrl: '',
+        dialogVisible: false,
+        isCollapse: true,
         isDialogOpen: false,
         form: {},
         query: {},
@@ -187,56 +238,6 @@
           labelWidth: 150,
           column: [
             {
-              label: "主键",
-              prop: "id",
-              overHidden: true,
-              rules: [{
-                required: true,
-                message: "请输入主键",
-                trigger: "blur"
-              }]
-            },
-            {
-              label: "创建人名称",
-              prop: "createUserName",
-              overHidden: true,
-              rules: [{
-                required: true,
-                message: "请输入创建人名称",
-                trigger: "blur"
-              }]
-            },
-            {
-              label: "创建人部门名称",
-              prop: "createDeptName",
-              overHidden: true,
-              rules: [{
-                required: true,
-                message: "请输入创建人部门名称",
-                trigger: "blur"
-              }]
-            },
-            {
-              label: "更新人名称",
-              prop: "updateUserName",
-              overHidden: true,
-              rules: [{
-                required: true,
-                message: "请输入更新人名称",
-                trigger: "blur"
-              }]
-            },
-            {
-              label: "更新人部门名称",
-              prop: "updateDeptName",
-              overHidden: true,
-              rules: [{
-                required: true,
-                message: "请输入更新人部门名称",
-                trigger: "blur"
-              }]
-            },
-            {
               label: "主题标题",
               prop: "title",
               overHidden: true,
@@ -248,7 +249,7 @@
             },
             {
               label: "主题描述",
-              prop: "describe",
+              prop: "description",
               overHidden: true,
               rules: [{
                 required: true,
@@ -350,6 +351,9 @@
         });
         return ids.join(",");
       }
+    },
+    created() {
+        this.onLoad(this.page, this.query);
     },
     methods: {
       rowSave(row, done, loading) {
@@ -462,10 +466,111 @@
           const data = res.data.data;
           this.page.total = data.total;
           this.data = data.records;
+          if (this.data.length>0) {
+            this.getDetail(this.data[0].id)
+            this.loginTopicId = this.data[0].id
+            this.loginTopicTitle = this.data[0].title
+          }
           this.loading = false;
           this.selectionClear();
           done();
         });
+      },
+      handleOpen(key, keyPath) {
+        console.log(key, keyPath);
+      },
+      handleClose(key, keyPath) {
+        console.log(key, keyPath);
+      },
+      menuClick(item) {
+        console.log("menuClickmenuClick",item)
+        this.getDetail(item.id)
+        this.loginTopicId = item.id
+        this.loginTopicTitle = item.title
+      },
+      getDetail(id) {
+        getDetail(id).then(res => {
+            this.form = res.data.data;
+        });
+      },
+      handleRemove(file, fileList) {
+        console.log(file, fileList);
+      },
+      handlePictureCardPreview(file) {
+        this.dialogImageUrl = file.url;
+        this.dialogVisible = true;
+      },
+      getheader() {
+        let token = getToken();
+        console.log("tokentoken",token)
+        return "bearer " + token;
+      },
+      getAuthorization() {
+        let auth = Base64.encode(website.clientId+':'+website.clientSecret)
+        return "Basic " + auth;
+      },
+      addTopic() {
+        this.activeName = '0'
+        this.addTopicVisible = true
+        this.updateTopicVisible = false
+      },
+      editTopic() {
+        this.activeName = '0'
+        this.updateTopicVisible = true
+        this.addTopicVisible = false
+      },
+      delTopic() {
+        this.activeName = '0'
+        this.addTopicVisible = false
+        this.updateTopicVisible = false
+        this.$confirm(`确定将【${this.form.title}】主题删除?`, {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        })
+          .then(() => {
+            return remove(this.form.id);
+          })
+          .then(() => {
+            this.onLoad(this.page);
+            this.$message({
+              type: "success",
+              message: "操作成功!"
+            });
+          });
+      },
+      saveTopic() {
+        this.isEdit = true
+        add(this.addform).then(() => {
+          this.isEdit = false
+          this.addTopicVisible = false
+          this.onLoad(this.page, this.query);
+          this.$message({
+            type: "success",
+            message: "操作成功!"
+          });
+        }, error => {
+          this.isEdit = false
+          window.console.log(error);
+        });
+      },
+      updateTopic() {
+        this.isEdit = true
+        update(this.form).then(() => {
+          this.isEdit = false
+          this.updateTopicVisible = false
+          this.onLoad(this.page, this.query);
+          this.$message({
+            type: "success",
+            message: "操作成功!"
+          });
+        }, error => {
+          this.isEdit = false
+          window.console.log(error);
+        });
+      },
+      tabsHandleClick(tab, event) {
+
       }
     }
   };
@@ -488,11 +593,29 @@
 // ::v-deep .el-menu-item {
 //     color: #fff;
 // }
-::v-deep .el-card {
+.el-card {
     padding: 0px 0px 220px 0px;
 }
 
 .el-tabs {
     padding: 0px 20px 0px 20px;
+}
+.el-divider--vertical {
+    display: inline-block;
+    width: 1px;
+    height: auto;
+    margin: 0 8px;
+    vertical-align: middle;
+    position: relative;
+}
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+    width: 200px;
+    min-height: 400px;
+}
+::v-deep .el-container {
+    height: auto;
+}
+.el-form-item__content {
+    display: flex;
 }
 </style>

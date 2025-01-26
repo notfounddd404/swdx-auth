@@ -761,6 +761,10 @@
           const data = res.data.data;
           this.options = data.records;
           console.log("this.option",this.option)
+          if (this.options.length>0) {
+            this.registeredClientId = this.options[0].id
+            this.onLoad(this.page, this.query);
+          }
           var column = this.findObject(this.option.group[0].column, "registeredClientId");
           column.dicData = Object.assign([],this.options)
         });

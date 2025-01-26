@@ -126,7 +126,7 @@
                     <el-form-item label="启用redis：">
                         <el-select v-model="form.isRedis" placeholder="请选择" >
                             <el-option
-                                v-for="item in isCaptchaFailedOptions"
+                                v-for="item in isRedisOptions"
                                 :key="item.value"
                                 :label="item.label"
                                 :value="item.value">
@@ -140,9 +140,9 @@
             <el-col :span="24">
                 <div class="grid-content bg-purple">
                     <el-form-item label="是否开启短信登录验证：">
-                        <el-select v-model="form.isRedis" placeholder="请选择" >
+                        <el-select v-model="form.isCaptchaFailed" placeholder="请选择" >
                             <el-option
-                                v-for="item in isRedisOptions"
+                                v-for="item in isCaptchaFailedOptions"
                                 :key="item.value"
                                 :label="item.label"
                                 :value="item.value">
