@@ -1,7 +1,17 @@
 <template>
   <div>
-    <el-row>
-        <el-col :span="22">
+    <el-row :gutter="6">
+        <el-col :span="8">
+            <el-select v-model="value" placeholder="系统名称" size="small">
+                <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                </el-option>
+            </el-select>
+        </el-col>
+        <el-col :span="12">
             <div class="grid-content bg-purple">
                 <div class="block">
                     <el-date-picker
@@ -15,7 +25,7 @@
                 </div>
             </div>
         </el-col>
-        <el-col :span="2">
+        <el-col :span="4">
             <div class="grid-content bg-purple-light">
                 <el-button-group>
                     <el-button type="primary" size="small">搜索</el-button>
@@ -27,7 +37,7 @@
 
     <el-divider></el-divider>
     <!-- 折线图 -->
-    <div id="viewChart" style="width: 100%; height:500px;"></div>
+    <div id="pageStayChart" style="width: 100%; height:500px;"></div>
 
     <el-row>
         <el-col :span="10">
@@ -62,20 +72,20 @@
     <el-divider></el-divider>
 
     <!-- 表格 -->
-    <viewAnalysisCrud></viewAnalysisCrud>
+    <executionCountCrud></executionCountCrud>
   </div>
 </template>
 
 <script>
-import viewAnalysisCrud from "./viewAnalysisCrud"
+import executionCountCrud from "./executionCountCrud"
 import * as echarts from 'echarts';
 export default {
-    components: {viewAnalysisCrud},
+    components: {executionCountCrud},
     data() {
         return {
             systemName: '',
             value1: '',
-            viewEchartsOption: {
+            pageStayEchartsOption: {
                 color: ['#5470C6', '#EE6666'],
                 tooltip: {
                     trigger: 'none',
@@ -145,7 +155,7 @@ export default {
                 ],
                 series: [
                     {
-                        name: '教务系统(2024)',
+                        name: '教务系统',
                         type: 'line',
                         xAxisIndex: 1,
                         smooth: true,
@@ -153,22 +163,38 @@ export default {
                             focus: 'series'
                         },
                         data: [
-                            2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3
+                            122.6, 125.9, 129.0, 2216.4, 2821.7, 7210.7, 17215.6, 18212.2, 4218.7, 1821.8, 612.0, 122.3
                         ]
                     },
                     {
-                        name: '智慧校园(2024)',
+                        name: '智慧校园',
                         type: 'line',
                         smooth: true,
                         emphasis: {
                             focus: 'series'
                         },
                         data: [
-                            3.9, 5.9, 11.1, 18.7, 48.3, 69.2, 231.6, 46.6, 55.4, 18.4, 10.3, 0.7
+                            4533.9, 4535.9, 1541.1, 1458.7, 4458.3, 3469.2, 2531.6, 4643.6, 5545.4, 1438.4, 1054.3, 340.7
                         ]
                     }
                 ]
-            }
+            },
+            option: [{
+                value: '选项1',
+                label: '黄金糕'
+                }, {
+                value: '选项2',
+                label: '双皮奶'
+                }, {
+                value: '选项3',
+                label: '蚵仔煎'
+                }, {
+                value: '选项4',
+                label: '龙须面'
+                }, {
+                value: '选项5',
+                label: '北京烤鸭'
+            }],
         }
     },
     mounted() {
@@ -176,9 +202,9 @@ export default {
     },
     methods: {
         initEcharts() {
-            var chartDom = document.getElementById('viewChart');
+            var chartDom = document.getElementById('pageStayChart');
             var myChart = echarts.init(chartDom);
-            myChart.setOption(this.viewEchartsOption)
+            myChart.setOption(this.pageStayEchartsOption)
         }
     }
 }

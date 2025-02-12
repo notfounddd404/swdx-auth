@@ -65,12 +65,12 @@
           labelWidth: 150,
           column: [
             {
-              label: "账号",
+              label: "用户账号",
               prop: "account",
               overHidden: true,
               rules: [{
                 required: true,
-                message: "请输入账号",
+                message: "请输入用户账号",
                 trigger: "blur"
               }],
               search: true
@@ -84,51 +84,101 @@
                 message: "请输入时间",
                 trigger: "blur"
               }],
+              search: true,
+              hide: true
+            },
+            {
+              label: "时间",
+              prop: "时间",
+              overHidden: true,
+              rules: [{
+                required: true,
+                message: "请输入时间",
+                trigger: "blur"
+              }],
+              search: true
+            },
+            {
+              label: "IP",
+              prop: "IP",
+              overHidden: true,
+              rules: [{
+                required: true,
+                message: "请输入浏览器",
+                trigger: "blur"
+              }],
+              search: true
+            },
+            {
+              label: "请求路径",
+              prop: "请求路径",
+              overHidden: true,
+              rules: [{
+                required: true,
+                message: "请输入浏览器版本",
+                trigger: "blur"
+              }],
               search: true
             },
             {
               label: "应用系统",
-              prop: "time",
+              prop: "应用系统",
               overHidden: true,
               rules: [{
                 required: true,
                 message: "请输入时间",
                 trigger: "blur"
               }],
-              search: true
+              search: true,
+              hide: true
             },
             {
-              label: "登录信息",
-              prop: "time",
+              label: "开始时间",
+              prop: "开始时间",
               overHidden: true,
               rules: [{
                 required: true,
-                message: "请输入时间",
+                message: "请输入开始时间",
                 trigger: "blur"
               }],
-              search: true
+              search: true,
+              hide: true
             },
             {
-              label: "操作时间",
-              prop: "time",
+              label: "结束时间",
+              prop: "结束时间",
               overHidden: true,
               rules: [{
                 required: true,
-                message: "请输入操作时间",
+                message: "请输入结束时间",
                 trigger: "blur"
               }],
-              search: true
+              search: true,
+              hide: true
             },
             {
-              label: "操作IP",
-              prop: "操作IP",
+              label: "请求执行阈值",
+              prop: "请求执行阈值",
               overHidden: true,
               rules: [{
                 required: true,
-                message: "请输入操作IP",
+                message: "请输入停留阈值（开始）",
                 trigger: "blur"
               }],
-              search: true
+              search: true,
+              hide: true
+            },
+            {
+              label: "请求执行阈值",
+              prop: "请求执行阈值",
+              overHidden: true,
+              rules: [{
+                required: true,
+                message: "请输入停留阈值（结束）",
+                trigger: "blur"
+              }],
+              search: true,
+              hide: true
             }
           ]
         },

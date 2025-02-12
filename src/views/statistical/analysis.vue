@@ -1,5 +1,6 @@
 <template>
   <basic-container class="flex-container">
+    <el-button @click="openSZLS"></el-button>
     <el-row>
         <el-col :span="14">
             <div class="grid-content bg-purple">
@@ -110,10 +111,12 @@
 </template>
 
 <script>
+import {loginSZLS} from "@/api/system/clientapply";
 import sqlWarning from './components/sqlWarning'
 import loginWarning from './components/loginWarning'
 import * as echarts from 'echarts';
-
+import Cookies from 'js-cookie'
+const http = require('http');
 var app = {};
 const posList = [
   'left',
@@ -507,6 +510,16 @@ export default {
             var chartDom = document.getElementById('yyjkEcharts');
             var myChart = echarts.init(chartDom);
             myChart.setOption(this.yyjkEchartsOption)
+        },
+        openSZLS() {
+            const server = http.createServer((req, res) => {
+  res.writeHead(200, {
+    'Set-Cookie': ['name=value; Path=/; HttpOnly', 'anothercookie=value2; Path=/']
+  });
+  res.end('Cookie is set');
+});
+
+server.listen(3000);
         }
     }
 

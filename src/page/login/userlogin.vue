@@ -83,6 +83,7 @@
   import {info} from "@/api/system/tenant";
   import {getCaptcha} from "@/api/user";
   import {getTopUrl} from "@/util/util";
+  import Cookies from 'js-cookie'
 
   export default {
     name: "userlogin",
@@ -269,6 +270,9 @@
     created() {
       this.getTenant();
       this.refreshCode();
+      if (Cookies.get('saber-access-token')==undefined || !Cookies.get('saber-access-token') || Cookies.get('saber-access-token')=='') {
+        this.handleLogin()
+      }
     },
     mounted() {
       this.$nextTick(() => {});
@@ -323,8 +327,8 @@
         done();
       },
       handleLogin() {
-        this.$refs.loginForm.validate(valid => {
-          if (valid) {
+        // this.$refs.loginForm.validate(valid => {
+        //   if (valid) {
             const loading = this.$loading({
               lock: true,
               text: '登录中,请稍后。。。',
@@ -351,8 +355,8 @@
               loading.close();
               this.refreshCode();
             });
-          }
-        });
+        //   }
+        // });
       },
       handleRegister() {
         this.registerBox = true;

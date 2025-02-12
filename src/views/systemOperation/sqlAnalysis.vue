@@ -2,18 +2,20 @@
   <basic-container class="flex-container">
     <div class="title">
         <!-- <span class="title-bg"></span> -->
-        <svg t="1737279825970" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="11933" id="mx_n_1737279825971" width="35" height="35"><path d="M622.353067 505.736533a385.672533 385.672533 0 0 1 124.027733 61.6448 24.9088 24.9088 0 0 1 11.502933 20.996267c0 13.781333-11.204267 24.9472-25.028266 24.9472a24.977067 24.977067 0 0 1-16.3712-6.08l-0.072534 0.085333c-53.9776-41.2416-119.031467-67.5072-187.042133-70.7712a224.554667 224.554667 0 0 1-36.949333 0.520534c-170.257067 13.013333-320.341333 170.858667-320.341334 342.6304 0 17.194667-4.514133 29.090133-21.7088 29.090133-17.198933 0-22.912-11.895467-22.912-29.090133 0-173.064533 113.966933-320.938667 270.818134-370.944C331.144533 470.621867 285.866667 398.464 285.866667 315.733333c0-122.5344 99.328-221.866667 221.866666-221.866666 122.5344 0 221.866667 99.332267 221.866667 221.866666 0 80.5888-42.9696 151.146667-107.246933 190.0032z m-23.808 282.432c-14.877867 0-26.939733-12.155733-26.939734-27.1488 0-14.997333 12.061867-27.153067 26.944-27.153066 14.882133 0 26.944 12.16 26.944 27.153066s-12.061867 27.1488-26.944 27.1488zM692.053333 733.866667h185.6c19.5584 0 31.146667 12.16 31.146667 27.153066s-11.588267 27.1488-31.146667 27.1488h-185.6c-19.5584 0-31.146667-12.155733-31.146666-27.1488 0-14.997333 11.588267-27.153067 31.146666-27.153066z m-93.44 179.2c-14.848 0-26.88-12.125867-26.88-27.0848s12.032-27.089067 26.88-27.089067 26.88 12.130133 26.88 27.089067c0 14.958933-12.032 27.0848-26.88 27.0848z m93.44-54.301867h185.6c19.5584 0 31.146667 12.155733 31.146667 27.1488 0 14.997333-11.588267 27.153067-31.146667 27.153067h-185.6c-19.5584 0-31.146667-12.16-31.146666-27.153067s11.588267-27.1488 31.146666-27.1488zM507.733333 490.666667c96.6016 0 174.933333-78.3232 174.933334-174.933334s-78.331733-174.933333-174.933334-174.933333c-96.622933 0-174.933333 78.3232-174.933333 174.933333s78.3104 174.933333 174.933333 174.933334z" fill="#409EFF" p-id="11934"></path></svg>
-        <h2>访问量维度分析</h2>
+        <svg t="1738777133698" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="12171" width="35" height="35">
+        <path class="circle" stroke="#108cee" fill="none" stroke-width="15" d="M443.41 431q9.72 16.69 15 23.93c4.24 8.31 10.84 15 15.06 23.29l1-1c7.43-5.09 13.26-25.32 1.41-38.61-6.12-9.31-26.07-9.05-32.47-7.61z" p-id="12172"></path>
+        <path class="circle" stroke="#108cee" fill="none" stroke-width="15" d="M883.52 284L547.17 89.85a39.07 39.07 0 0 0-39 0L171.86 284a39.07 39.07 0 0 0-19.49 33.75v388.42a39.07 39.07 0 0 0 19.48 33.75l336.36 194.19a39.08 39.08 0 0 0 39 0l336.3-194.19A39.07 39.07 0 0 0 903 706.17V317.79A39.07 39.07 0 0 0 883.52 284z m-44.8 407.51l-90 52a16.24 16.24 0 0 0-1.56-1.82q-13-13.94-25.62-28.3h56.31A16.38 16.38 0 0 0 792.07 689c-4-7.09-13.31-19.2-47.63-42.56a561.43 561.43 0 0 0-64-37.93c-15.65-42.34-45.95-97.24-90.16-163.35-47.62-71.22-102.89-101.16-164.67-89.33q-10.11-10-20.94-19.28C389.1 323.18 350.92 311.82 329 314c-9.94 1-17.4 4.63-22.18 10.78-11.08 14.28-7.38 34.82 43.74 101.75 9.72 28.45 11.8 43.31 11.8 50.79 0 15.81 8.17 33.95 25.57 56.65l-16.37 56c-14.6 50 11.93 114.73 36.63 137.28 13.18 12 24.28 10.25 29.76 8.1 11-4.32 19.87-15.08 25.6-45.78q4.72 11.64 9.31 23.32c17.68 44.88 35 69.71 54.39 78.13a16.39 16.39 0 0 0 13-30c-4.81-2.09-18.07-12.13-37-60.1-15.94-40.48-27.55-67.55-35.49-82.79a16.36 16.36 0 0 0-30.84 6.87c-2 46.57-6.67 66.7-9.82 75.2-13.55-15.58-34.85-64.44-24.16-101q15.93-54.65 18.74-64.07a16.34 16.34 0 0 0-3-15c-21.31-26.17-23.62-38.66-23.62-42.82 0-15.07-4.73-36-14.47-64a16 16 0 0 0-2.44-4.55c-27.53-35.86-37.65-53.82-41.35-62.34 13.11 0.62 38 7.69 46.55 15a338 338 0 0 1 25.08 23.69 16.32 16.32 0 0 0 16 4.57c51.25-13.26 96.64 10.82 138.66 73.66 44.91 67.18 74.75 121.76 88.7 162.26a16.38 16.38 0 0 0 8.38 9.43A513.79 513.79 0 0 1 726 673.49q5.18 3.52 10.26 7.17h-50.54a16.38 16.38 0 0 0-12.45 27q22.64 26.82 46.47 52.6L527.69 871.12l-311-179.57V332.41l311-179.57 311 179.57z" p-id="12173"></path></svg>
+        <h2>SQL执行时间分析</h2>
     </div>
     <el-tabs type="card" v-model="activeName">
-        <el-tab-pane label="访问量维度分析" name="0">
-            <viewAnalysisComponents v-if="activeName=='0'"></viewAnalysisComponents>
+        <el-tab-pane label="SQL执行时间分析" name="0">
+            <executionTime v-if="activeName=='0'"></executionTime>
         </el-tab-pane>
-        <el-tab-pane label="系统登录日志" name="1">
-            <viewAnalysisLoginLog v-if="activeName=='1'"></viewAnalysisLoginLog>
+        <el-tab-pane label="SQL执行次数分析" name="1">
+            <executionCount v-if="activeName=='1'"></executionCount>
         </el-tab-pane>
-        <el-tab-pane label="系统登录预警" name="2">
-            <viewAnalysisLoginWaning v-if="activeName=='2'"></viewAnalysisLoginWaning>
+        <el-tab-pane label="SQL执行日志" name="2">
+            <executionLog v-if="activeName=='2'"></executionLog>
         </el-tab-pane>
     </el-tabs>
 
@@ -24,11 +26,11 @@
   import {getList, getDetail, add, update, remove, submit, getLastOne} from "@/api/authManager/identitylibrarymanager";
   import {mapGetters} from "vuex";
   import {deepClone} from "@/util/util";
-  import viewAnalysisComponents from "./viewComponents/viewAnalysisComponents"
-  import viewAnalysisLoginLog from "./viewComponents/viewAnalysisLoginLog"
-  import viewAnalysisLoginWaning from "./viewComponents/viewAnalysisLoginWaning"
+  import executionTime from "./sqlAnalysisComponents/executionTime";
+  import executionCount from "./sqlAnalysisComponents/executionCount"
+  import executionLog from "./sqlAnalysisComponents/executionLog"
   export default {
-    components: {viewAnalysisComponents,viewAnalysisLoginLog,viewAnalysisLoginWaning},
+    components: {executionTime,executionLog,executionCount},
     data() {
       return {
         activeName: '',
@@ -476,5 +478,41 @@
 }
 .el-select {
     width: 100%;
+}
+
+/* 外层圆环动画 */
+.circle {
+    stroke-dasharray: 1000; /* 路径总长度 */
+    stroke-dashoffset: 1000; /* 初始偏移量 */
+    animation: draw-circle 1s ease-in-out forwards; /* 只播放一次 */
+} 
+
+/* 关键帧：绘制圆环 */
+@keyframes draw-circle {
+    0% {
+        stroke-dashoffset: 1000; /* 初始状态：完全隐藏 */
+    }
+    100% {
+        stroke-dashoffset: 0; /* 结束状态：完全显示 */
+    }
+}
+
+/* 颜色填充动画 */
+@keyframes fill-color {
+    0% {
+        fill: transparent; /* 初始状态：无填充 */
+    }
+    100% {
+        fill: #108cee; /* 结束状态：填充颜色 */
+    }
+}
+
+/* 在描边完成后触发填充动画 */
+.circle {
+    animation-fill-mode: forwards; /* 保持最终状态 */
+}
+
+.circle {
+    animation: draw-circle 1s ease-in-out forwards, fill-color 0.5s ease-in-out 1s forwards;
 }
 </style>

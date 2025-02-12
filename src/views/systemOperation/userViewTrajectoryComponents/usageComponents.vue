@@ -1,7 +1,7 @@
 <template>
   <div>
-    <el-row>
-        <el-col :span="22">
+    <el-row :gutter="12">
+        <el-col :span="20">
             <div class="grid-content bg-purple">
                 <div class="block">
                     <el-date-picker
@@ -15,7 +15,7 @@
                 </div>
             </div>
         </el-col>
-        <el-col :span="2">
+        <el-col :span="4">
             <div class="grid-content bg-purple-light">
                 <el-button-group>
                     <el-button type="primary" size="small">搜索</el-button>
@@ -62,15 +62,15 @@
     <el-divider></el-divider>
 
     <!-- 表格 -->
-    <viewAnalysisCrud></viewAnalysisCrud>
+    <usageCrud></usageCrud>
   </div>
 </template>
 
 <script>
-import viewAnalysisCrud from "./viewAnalysisCrud"
+import usageCrud from "./usageCrud"
 import * as echarts from 'echarts';
 export default {
-    components: {viewAnalysisCrud},
+    components: {usageCrud},
     data() {
         return {
             systemName: '',
@@ -145,7 +145,7 @@ export default {
                 ],
                 series: [
                     {
-                        name: '教务系统(2024)',
+                        name: '教务系统',
                         type: 'line',
                         xAxisIndex: 1,
                         smooth: true,
@@ -153,18 +153,18 @@ export default {
                             focus: 'series'
                         },
                         data: [
-                            2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3
+                            2123.6, 5432.9, 549.0, 6526.4, 2878.7, 7340.7, 1755.6, 18652.2, 487.7, 188.8, 69.0, 298.3
                         ]
                     },
                     {
-                        name: '智慧校园(2024)',
+                        name: '智慧校园',
                         type: 'line',
                         smooth: true,
                         emphasis: {
                             focus: 'series'
                         },
                         data: [
-                            3.9, 5.9, 11.1, 18.7, 48.3, 69.2, 231.6, 46.6, 55.4, 18.4, 10.3, 0.7
+                            5643.9, 5876.9, 9911.1, 1809.7, 480.3, 699.2, 2431.6, 461.6, 515.4, 118.4, 110.3, 1011.7
                         ]
                     }
                 ]

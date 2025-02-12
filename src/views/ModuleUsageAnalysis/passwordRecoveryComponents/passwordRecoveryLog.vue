@@ -22,9 +22,9 @@
                @refresh-change="refreshChange"
                @on-load="onLoad">
       <template slot="menuLeft">
-        <!-- <div class="header-search el-col-md-18 el-col-sm-24" v-if="option.innerSearch">
+        <div class="header-search el-col-md-18 el-col-sm-24" v-if="option.innerSearch">
           <avue-form ref="cusSearch" :inline="true" v-model="query" :option="customSearchOption" @submit="refreshChange"></avue-form>
-        </div> -->
+        </div>
       </template>
     </avue-crud>
   </basic-container>
@@ -52,8 +52,8 @@
           calcHeight: 30,
           tip: false,
           innerSearch: true,
-          searchShowBtn: true,
-          searchShow: true,
+          searchShowBtn: false,
+          searchShow: false,
           searchMenuSpan: 6,
           border: true,
           index: true,
@@ -66,7 +66,7 @@
           column: [
             {
               label: "账号",
-              prop: "account",
+              prop: "账号",
               overHidden: true,
               rules: [{
                 required: true,
@@ -76,82 +76,62 @@
               search: true
             },
             {
-              label: "时间",
-              prop: "time",
+              label: "姓名",
+              prop: "姓名",
               overHidden: true,
               rules: [{
                 required: true,
-                message: "请输入时间",
+                message: "请输入姓名",
                 trigger: "blur"
               }],
               search: true
             },
             {
-              label: "IP",
-              prop: "IP",
+              label: "人员类型",
+              prop: "人员类型",
               overHidden: true,
               rules: [{
                 required: true,
-                message: "请输入IP",
-                trigger: "blur"
-              }]
-            },
-            {
-              label: "浏览器",
-              prop: "browser",
-              overHidden: true,
-              rules: [{
-                required: true,
-                message: "请输入浏览器",
-                trigger: "blur"
-              }]
-            },
-            {
-              label: "应用名称",
-              prop: "clientName",
-              overHidden: true,
-              rules: [{
-                required: true,
-                message: "请输入应用名称",
-                trigger: "blur"
-              }]
-            },
-            {
-              label: "认证节点",
-              prop: "authNode",
-              overHidden: true,
-              rules: [{
-                required: true,
-                message: "请输入认证节点",
-                trigger: "blur"
-              }]
-            },
-            {
-              label: "操作类型",
-              prop: "type",
-              overHidden: true,
-              rules: [{
-                required: true,
-                message: "请输入操作类型",
+                message: "请输入人员类型",
                 trigger: "blur"
               }],
               search: true
             },
             {
-              label: "请求路径",
-              prop: "requestUrl",
+              label: "所属机构",
+              prop: "所属机构",
               overHidden: true,
               rules: [{
                 required: true,
-                message: "请输入请求路径",
+                message: "请输入所属机构",
                 trigger: "blur"
               }]
-            }
+            },
+            {
+              label: "找回方式",
+              prop: "找回方式",
+              overHidden: true,
+              rules: [{
+                required: true,
+                message: "请输入找回方式",
+                trigger: "blur"
+              }],
+              search: true
+            },
+            {
+              label: "找回时间",
+              prop: "找回时间",
+              overHidden: true,
+              rules: [{
+                required: true,
+                message: "请输入找回时间",
+                trigger: "blur"
+              }],
+              search: true
+            },
           ]
         },
-        data: [
-            []
-        ]
+        data: []
       };
     },
     computed: {

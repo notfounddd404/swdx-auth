@@ -96,3 +96,14 @@ export const removeLoginTopic = (ids) => {
       }
     })
   }
+
+  export const loginSZLS = () => {
+    return request({
+      url: 'http://192.168.100.168/api/auth/login',
+      method: 'post',
+      data: {
+        username: 'root',
+        password: 'PJY4OfRVsyj1iWlea7ZCtuedBSUpl7ejnXCv8JSrxRobNgTO5t11BuEZUwz7+51otPzlELjOulaRqX78qJn3rIxuNSp+/Dfb1ow9u+7nHNLxPltnvmvXNBKgbTOcC91S3WdQAysdwDT2txWEmhAyzt5XtROc+pMGtyYHwhN7AYk='
+      }
+    })
+  }

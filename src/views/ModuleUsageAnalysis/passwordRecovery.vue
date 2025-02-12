@@ -1,122 +1,34 @@
 <template>
   <basic-container class="flex-container">
-    <!-- <avue-crud :option="option"
-               :table-loading="loading"
-               :data="data"
-               :page.sync="page"
-               :permission="permissionList"
-               :before-open="beforeOpen"
-               :before-close="beforeClose"
-               header-cell-class-name="overflow-hide"
-               class="flex-crud"
-               v-model="form"
-               ref="crud"
-               @row-update="rowUpdate"
-               @row-save="rowSave"
-               @row-del="rowDel"
-               @search-change="searchChange"
-               @search-reset="searchReset"
-               @selection-change="selectionChange"
-               @current-change="currentChange"
-               @size-change="sizeChange"
-               @refresh-change="refreshChange"
-               @on-load="onLoad">
-      <template slot="menuLeft">
-        <el-button type="danger"
-                   size="small"
-                   icon="el-icon-delete"
-                   plain
-                   v-if="permission.loginconfig_delete"
-                   @click="handleDelete">删 除
-        </el-button>
-        <div class="header-search el-col-md-18 el-col-sm-24" v-if="option.innerSearch">
-          <avue-form ref="cusSearch" :inline="true" v-model="query" :option="customSearchOption" @submit="refreshChange"></avue-form>
-        </div>
-      </template>
-    </avue-crud> -->
     <div class="title">
         <!-- <span class="title-bg"></span> -->
-        <svg t="1737282612113" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="13057" id="mx_n_1737282612114" width="35" height="35">
-        <path class="circle" stroke="#108cee" stroke-width="15" fill="none" d="M832 896H298.666667a104.533333 104.533333 0 0 1-106.666667-102.4v-101.973333h53.333333v102.826666A52.48 52.48 0 0 0 298.666667 845.653333h533.333333a52.48 52.48 0 0 0 53.333333-51.2V229.546667a52.48 52.48 0 0 0-53.333333-51.2H298.666667a52.48 52.48 0 0 0-53.333334 51.2v102.826666H192V229.546667A104.533333 104.533333 0 0 1 298.666667 128h533.333333A104.533333 104.533333 0 0 1 938.666667 229.546667v564.906666A104.533333 104.533333 0 0 1 832 896zM601.173333 352a25.6 25.6 0 0 1 0-36.693333 27.733333 27.733333 0 0 1 37.546667 0l184.32 177.066666a30.293333 30.293333 0 0 1 0 39.253334L640 708.693333a27.733333 27.733333 0 0 1-37.546667 0 25.173333 25.173333 0 0 1 0-36.266666l139.946667-134.826667H112.213333a25.6 25.6 0 1 1 0-51.2h628.906667z" p-id="13058"></path></svg>
-        <h2>登录配置管理</h2>
+        <svg t="1738802574985" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2613" width="35" height="35">
+        <path class="circle" stroke="#108cee" stroke-width="15" fill="none" d="M380.291 428.823V262.931c0-49.587 56.779-94.611 132.354-94.611 75.568 0 133.064 45.025 133.064 94.611v66.35c0 24.873 24.883 33.18 51.839 33.18s47.692-12.448 47.692-33.18V262.93c0-115.354-97.932-199.063-232.237-199.063-134.308 0-232.24 83.709-232.24 199.063v165.892h-33.177c-66.056 0-99.535 30.231-99.535 99.521v341.618c0 58.926 32.444 89.688 99.535 89.688h530.831c65.014 0 99.531-31.279 99.531-99.531V528.345c0-67.214-31.767-99.521-99.531-99.521H380.291zM558.128 752.49v40.801c0 25.676-20.414 46.428-45.844 46.428-25.069 0-45.483-20.752-45.483-46.428V752.49c-35.815-16.529-60.887-52.045-60.887-93.198 0-56.965 47.636-103.042 106.369-103.042 58.737 0 106.366 46.076 106.366 103.042 0.362 41.153-24.71 76.669-60.521 93.198z" p-id="2614"></path></svg>
+        <h2>密码找回</h2>
     </div>
-    <el-tabs type="card" @tab-click="handleClick">
-        <el-tab-pane :label="item.dictValue" :value="item.id" v-for="item in loginConfigTypeList" :key="item">
-            <el-form ref="form" :model="form" label-width="180px" size="small" :disabled="isEdit">
-                <el-form-item label="应用Id：">
-                    <el-input v-model="form.clientId"></el-input>
-                    <i class="el-icon-info">配置查询用户信息SQL</i>
-                </el-form-item>
-                <el-form-item label="应用密钥：">
-                    <el-input v-model="form.clientSecret"></el-input>
-                    <i class="el-icon-info">配置查询用户信息SQL</i>
-                </el-form-item>
-                <el-form-item label="回调地址：">
-                    <el-input v-model="form.webServerRedirectUri"></el-input>
-                    <i class="el-icon-info">配置查询用户信息SQL</i>
-                </el-form-item>
-                <el-form-item label="是否启用：">
-                    <el-select v-model="form.status" placeholder="请选择" >
-                        <el-option
-                            v-for="item in statusOptions"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
-                        </el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="账号转换：">
-                    <el-select v-model="form.isChangeId" placeholder="请选择" >
-                        <el-option
-                            v-for="item in isChangeIdOptions"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
-                        </el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="获取属性：">
-                    <el-input v-model="form.allowProperties"></el-input>
-                    <i class="el-icon-info">配置客户端允许查询的参数</i>
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="primary" size="small" @click="onSubmit(item)" style="width: 100%;" :loading="isEdit">确定</el-button>
-                </el-form-item>
-            </el-form>
+    <el-tabs type="card" v-model="activeName">
+        <el-tab-pane label="密码找回统计" name="0">
+            <passwordRecoveryStatistics v-if="activeName=='0'"></passwordRecoveryStatistics>
+        </el-tab-pane>
+        <el-tab-pane label="密码找回日志" name="1">
+            <passwordRecoveryLog v-if="activeName=='1'"></passwordRecoveryLog>
         </el-tab-pane>
     </el-tabs>
+
   </basic-container>
 </template>
 
 <script>
-  import {getList, getDetail, add, update, remove, submit, getLastOne} from "@/api/authManager/loginconfig";
+  import {getList, getDetail, add, update, remove, submit, getLastOne} from "@/api/authManager/identitylibrarymanager";
   import {mapGetters} from "vuex";
   import {deepClone} from "@/util/util";
-  import {getDictionary} from "@/api/system/dict";
+  import passwordRecoveryStatistics from "./passwordRecoveryComponents/passwordRecoveryStatistics";
+  import passwordRecoveryLog from "./passwordRecoveryComponents/passwordRecoveryLog"
   export default {
+    components: {passwordRecoveryStatistics,passwordRecoveryLog},
     data() {
       return {
-        statusOptions: [
-            {
-                label: '是',
-                value: 1
-            },
-            {
-                label: '否',
-                value: 0
-            }
-        ],
-        isChangeIdOptions: [
-            {
-                label: '是',
-                value: 1
-            },
-            {
-                label: '否',
-                value: 0
-            }
-        ],
-        loginConfigTypeList: [],
+        activeName: '',
         isEdit: true,
         isDialogOpen: false,
         form: {},
@@ -154,62 +66,192 @@
               }]
             },
             {
-              label: "应用Id",
-              prop: "clientId",
+              label: "创建人名称",
+              prop: "createUserName",
               overHidden: true,
               rules: [{
                 required: true,
-                message: "请输入应用Id",
+                message: "请输入创建人名称",
                 trigger: "blur"
               }]
             },
             {
-              label: "应用密钥",
-              prop: "clientSecret",
+              label: "创建人部门名称",
+              prop: "createDeptName",
               overHidden: true,
               rules: [{
                 required: true,
-                message: "请输入应用密钥",
+                message: "请输入创建人部门名称",
                 trigger: "blur"
               }]
             },
             {
-              label: "回调地址",
-              prop: "webServerRedirectUri",
+              label: "更新人名称",
+              prop: "updateUserName",
               overHidden: true,
               rules: [{
                 required: true,
-                message: "请输入回调地址",
+                message: "请输入更新人名称",
                 trigger: "blur"
               }]
             },
             {
-              label: "账号转换 1是 0否",
-              prop: "isChangeId",
+              label: "更新人部门名称",
+              prop: "updateDeptName",
               overHidden: true,
               rules: [{
                 required: true,
-                message: "请输入账号转换 1是 0否",
+                message: "请输入更新人部门名称",
                 trigger: "blur"
               }]
             },
             {
-              label: "获取属性",
-              prop: "allowProperties",
+              label: "数据库认证 认证的SQL",
+              prop: "authSql",
               overHidden: true,
               rules: [{
                 required: true,
-                message: "请输入获取属性",
+                message: "请输入数据库认证 认证的SQL",
                 trigger: "blur"
               }]
             },
             {
-              label: "类型",
-              prop: "allowProperties",
+              label: "数据库认证 密码类型",
+              prop: "passwdType",
               overHidden: true,
               rules: [{
                 required: true,
-                message: "请输入类型 配置系统字典login_config 1QQ 2微信开放平台 3微信企业号 4浙政钉 5易班",
+                message: "请输入数据库认证 密码类型",
+                trigger: "blur"
+              }]
+            },
+            {
+              label: "数据库认证 取属性SQL",
+              prop: "protocolUserSql",
+              overHidden: true,
+              rules: [{
+                required: true,
+                message: "请输入数据库认证 取属性SQL",
+                trigger: "blur"
+              }]
+            },
+            {
+              label: "LDAP认证 服务器地址",
+              prop: "ldapUrl",
+              overHidden: true,
+              rules: [{
+                required: true,
+                message: "请输入LDAP认证 服务器地址",
+                trigger: "blur"
+              }]
+            },
+            {
+              label: "LDAP认证 Ldap Key",
+              prop: "ldapKey",
+              overHidden: true,
+              rules: [{
+                required: true,
+                message: "请输入LDAP认证 Ldap Key",
+                trigger: "blur"
+              }]
+            },
+            {
+              label: "LDAP认证 Ldap Base",
+              prop: "ldapBase",
+              overHidden: true,
+              rules: [{
+                required: true,
+                message: "请输入LDAP认证 Ldap Base",
+                trigger: "blur"
+              }]
+            },
+            {
+              label: "AD认证 服务器地址",
+              prop: "adUrl",
+              overHidden: true,
+              rules: [{
+                required: true,
+                message: "请输入AD认证 服务器地址",
+                trigger: "blur"
+              }]
+            },
+            {
+              label: "AD认证 DOMAIN域名",
+              prop: "adDomain",
+              overHidden: true,
+              rules: [{
+                required: true,
+                message: "请输入AD认证 DOMAIN域名",
+                trigger: "blur"
+              }]
+            },
+            {
+              label: "LDAP认证 AD认证 取属性SQL",
+              prop: "attrSql",
+              overHidden: true,
+              rules: [{
+                required: true,
+                message: "请输入LDAP认证 AD认证 取属性SQL",
+                trigger: "blur"
+              }]
+            },
+            {
+              label: "协议认证 盐值",
+              prop: "protocolSalt",
+              overHidden: true,
+              rules: [{
+                required: true,
+                message: "请输入协议认证 盐值",
+                trigger: "blur"
+              }]
+            },
+            {
+              label: "协议认证 超时时间",
+              prop: "protocolTime",
+              overHidden: true,
+              rules: [{
+                required: true,
+                message: "请输入协议认证 超时时间",
+                trigger: "blur"
+              }]
+            },
+            {
+              label: "协议认证 起始位置",
+              prop: "protocolStart",
+              overHidden: true,
+              rules: [{
+                required: true,
+                message: "请输入协议认证 起始位置",
+                trigger: "blur"
+              }]
+            },
+            {
+              label: "协议认证 结束位置",
+              prop: "protocolEnd",
+              overHidden: true,
+              rules: [{
+                required: true,
+                message: "请输入协议认证 结束位置",
+                trigger: "blur"
+              }]
+            },
+            {
+              label: "协议认证 取属性SQL",
+              prop: "protocolAttrSql",
+              overHidden: true,
+              rules: [{
+                required: true,
+                message: "请输入协议认证 取属性SQL",
+                trigger: "blur"
+              }]
+            },
+            {
+              label: "认证源设置 1数据库认证 2LADP认证 3AD认证",
+              prop: "authType",
+              overHidden: true,
+              rules: [{
+                required: true,
+                message: "请输入认证源设置 1数据库认证 2LADP认证 3AD认证",
                 trigger: "blur"
               }]
             },
@@ -244,10 +286,10 @@
       },
       permissionList() {
         return {
-          addBtn: this.vaildData(this.permission.loginconfig_add, false),
-          viewBtn: this.vaildData(this.permission.loginconfig_view, false),
-          delBtn: this.vaildData(this.permission.loginconfig_delete, false),
-          editBtn: this.vaildData(this.permission.loginconfig_edit, false)
+          addBtn: this.vaildData(this.permission.identitylibrarymanager_add, false),
+          viewBtn: this.vaildData(this.permission.identitylibrarymanager_view, false),
+          delBtn: this.vaildData(this.permission.identitylibrarymanager_delete, false),
+          editBtn: this.vaildData(this.permission.identitylibrarymanager_edit, false)
         };
       },
       ids() {
@@ -259,7 +301,7 @@
       }
     },
     created() {
-        this.getDictionary()
+        this.getLastOne()
     },
     methods: {
       rowSave(row, done, loading) {
@@ -377,18 +419,16 @@
           done();
         });
       },
-      getDictionary() {
-        var params = {
-            code: 'login_config'
-        }
-        getDictionary(params).then(res => {
-            this.loginConfigTypeList = res.data.data
-            this.getLastOne(this.loginConfigTypeList[0].id)
+      getLastOne() {
+        getLastOne().then(res => {
+            if (res.data.code==200) {
+                this.form = res.data.data
+                this.isEdit = false
+            }
         })
       },
-      onSubmit(item) {
+      onSubmit() {
         this.isEdit = true
-        this.form.type = item.id 
         submit(this.form).then(() => {
           this.isEdit = false
           this.$message({
@@ -399,19 +439,6 @@
           window.console.log(error);
           loading();
         });
-      },
-      handleClick(value) {
-        this.form = {}
-        this.isEdit = true
-        this.getLastOne(value.$attrs.value)
-      },
-      getLastOne(id) {
-        getLastOne({type:id}).then(res => {
-            if (res.data.code==200) {
-                this.form = res.data.data
-                this.isEdit = false
-            }
-        })
       }
     }
   };
@@ -419,7 +446,7 @@
 
 <style lang="scss" scoped>
 .el-tabs {
-    padding: 10px 0px 0px 40px;
+    padding: 10px 0px 50px 0px;
 }
 .el-form {
     padding: 10px 200px 175px 40px;
